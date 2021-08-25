@@ -26,23 +26,18 @@
 </template>
 
 <script>
+import axios from 'axios';
 export default {
   name: 'Home',
   data() {
     return {
-      items: [{
-        text: "make an app",
-        completed: false,
-      }, {
-        text: "declare victory",
-        completed: false,
-      }, {
-        text: "profit",
-        completed: false
-      }],
+      items: [],
       text: '',
       show: 'all',
     }
+  },
+  created: function() {
+    this.getItems();
   },
   computed: {
     activeItems() {
@@ -63,12 +58,25 @@ export default {
     },
   },
   methods: {
-    addItem() {
-      this.items.push({
-        text: this.text,
-        completed: false
-      });
-      this.text = '';
+    async getItems() {
+      try {
+        const response = await axios.get("/api/items");
+        this.items = response.data;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async addItem() {
+      try {
+        await axios.post("/api/items", {
+          text: this.text,
+          completed: false
+        });
+        this.text = "";
+        this.getItems();
+      } catch (error) {
+        console.log(error);
+      }
     },
     deleteItem(item) {
       var index = this.items.indexOf(item);
