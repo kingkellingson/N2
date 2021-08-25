@@ -9,7 +9,7 @@ app.use(bodyParser.urlencoded({
 }));
 
 // parse application/json
-app.use(bodyParser.json());
+app.use(bodyParser.json()); 
 
 let items = [];
 let id = 0;
