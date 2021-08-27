@@ -30,7 +30,7 @@ app.post('/api/items', (req, res) => {
   });
 
   app.put('/api/items/:id', (req, res) => {
-    console.log("recieved ", req.params)
+    console.log("recieved ", req)
     let id = parseInt(req.params.id);
     console.log("id ", id)
     let itemsMap = items.map(item => {
