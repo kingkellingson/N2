@@ -30,10 +30,13 @@ app.post('/api/items', (req, res) => {
   });
 
   app.put('/api/items/:id', (req, res) => {
+    console.log("recieved ", req.params)
     let id = parseInt(req.params.id);
+    console.log("id ", id)
     let itemsMap = items.map(item => {
       return item.id;
     });
+    console.log("itemsMap ", itemsMap)
     let index = itemsMap.indexOf(id);
     if (index === -1) {
       res.status(404)
@@ -41,6 +44,7 @@ app.post('/api/items', (req, res) => {
       return;
     }
     let item = items[index];
+    console.log("item", item)
     item.text = req.body.text;
     item.completed = req.body.completed;
     res.send(item);
